@@ -1,0 +1,50 @@
+enum Operation {
+    Add(f64, f64),
+    Subtract(f64, f64),
+    Multiply(f64, f64),
+    Divide(f64, f64),
+}
+
+fn calculate(op: Operation) -> f64 {
+    match op {
+        Operation::Add(a, b) => a + b,
+        Operation::Subtract(a, b) => a - b,
+        Operation::Multiply(a, b) => a * b,
+        Operation::Divide(a, b) => a / b,
+    }
+}
+
+fn main() {
+    println!("Simple Calculator");
+    println!("Here are your options:");
+    println!("1. Addition");
+    println!("2. Subtraction");
+    println!("3. Multiplication");
+    println!("4. Division");
+
+    let mut input = String::new();
+    println!("Enter your choice (1-4):");
+    std::io::stdin().read_line(&mut input).unwrap();
+    let choice: u32 = input.trim().parse().unwrap();
+
+    println!("Enter the first number:");
+    input.clear();
+    std::io::stdin().read_line(&mut input).unwrap();
+    let num1: f64 = input.trim().parse().unwrap();
+
+    println!("Enter the second number:");
+    input.clear();
+    std::io::stdin().read_line(&mut input).unwrap();
+    let num2: f64 = input.trim().parse().unwrap();
+
+    let op = match choice {
+        1 => Operation::Add(num1, num2),
+        2 => Operation::Subtract(num1, num2),
+        3 => Operation::Multiply(num1, num2),
+        4 => Operation::Divide(num1, num2),
+        _ => panic!("Invalid choice"),
+    };
+
+    let result = calculate(op);
+    println!("Result: {}", result);
+}
